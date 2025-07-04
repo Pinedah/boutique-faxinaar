@@ -2,6 +2,38 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Funcionalidad de filtros mejorada
+    const filtrosBtns = document.querySelectorAll('.filtro-btn');
+    const productCards = document.querySelectorAll('.producto-card');
+    const gridProductos = document.querySelector('.grid-productos');
+    
+    filtrosBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remover clase active de todos los botones
+            filtrosBtns.forEach(b => b.classList.remove('active'));
+            // Agregar clase active al botón clickeado
+            this.classList.add('active');
+            
+            const categoria = this.getAttribute('data-categoria');
+            
+            // Añadir clase de transición al grid
+            gridProductos.style.transition = 'all 0.3s ease';
+            
+            productCards.forEach((card, index) => {
+                if (categoria === 'todas' || card.getAttribute('data-categoria') === categoria) {
+                    // Mostrar tarjeta con delay escalonado
+                    setTimeout(() => {
+                        card.classList.remove('hidden');
+                        card.style.animation = 'fadeInUp 0.4s ease forwards';
+                    }, index * 50);
+                } else {
+                    // Ocultar tarjeta
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+    
     // Smooth scroll para navegación
     const navLinks = document.querySelectorAll('.nav a[href^="#"]');
     
@@ -22,8 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Animación de entrada para las tarjetas de productos
-    const productCards = document.querySelectorAll('.producto-card');
-    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'

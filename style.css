@@ -36,23 +36,28 @@ body {
     grid-area: header;
     background-color: var(--color-morado-boutique);
     padding: var(--espaciado);
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     align-items: center;
-    gap: var(--espaciado);
+    justify-content: space-between;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.logo-img{
-    height: 100px;
+.logo-container {
     display: flex;
     align-items: center;
+    gap: calc(var(--espaciado) * 0.75);
 }
 
-.logo h1 {
+.logo-img {
+    height: 60px;
+    width: auto;
+}
+
+.nombre-logo {
     color: var(--color-blanco);
     font-size: 1.8rem;
     font-weight: bold;
+    margin: 0;
 }
 
 .nav ul {
@@ -108,12 +113,49 @@ body {
     color: var(--color-negro);
 }
 
+/* FILTROS */
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--espaciado) * 0.75);
+    margin-bottom: calc(var(--espaciado) * 2);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filtro-btn {
+    padding: calc(var(--espaciado) * 0.5) calc(var(--espaciado) * 1);
+    border: 2px solid var(--color-morado-boutique);
+    background-color: var(--color-blanco);
+    color: var(--color-morado-boutique);
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.filtro-btn:hover {
+    background-color: var(--color-morado-boutique);
+    color: var(--color-blanco);
+    transform: translateY(-2px);
+}
+
+.filtro-btn.active {
+    background-color: var(--color-morado-boutique);
+    color: var(--color-blanco);
+    box-shadow: 0 4px 10px rgba(180, 137, 255, 0.3);
+}
+
 .grid-productos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: calc(var(--espaciado) * 1.5);
     max-width: 1200px;
     margin: 0 auto;
+    justify-items: center;
 }
 
 .producto-card {
@@ -121,7 +163,22 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: scale(1);
+    width: 100%;
+    max-width: 350px;
+}
+
+.producto-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
 }
 
 .producto-card:hover {
@@ -230,11 +287,49 @@ body {
 }
 
 /* RESPONSIVE DESIGN */
+
+/* Tablets grandes y pantallas medianas */
+@media (max-width: 1024px) {
+    .grid-productos {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: calc(var(--espaciado) * 1.25);
+        max-width: 900px;
+    }
+    
+    .producto-card {
+        max-width: 320px;
+    }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
     .header {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: calc(var(--espaciado) * 0.5);
         text-align: center;
+    }
+    
+    .logo-container {
+        flex-direction: column;
+        gap: calc(var(--espaciado) * 0.5);
+    }
+    
+    .logo-img {
+        height: 50px;
+    }
+    
+    .nombre-logo {
+        font-size: 1.5rem;
+    }
+    
+    .filtros {
+        gap: calc(var(--espaciado) * 0.5);
+        justify-content: center;
+    }
+    
+    .filtro-btn {
+        padding: calc(var(--espaciado) * 0.4) calc(var(--espaciado) * 0.8);
+        font-size: 0.8rem;
     }
     
     .nav ul {
@@ -252,8 +347,13 @@ body {
     }
     
     .grid-productos {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: var(--espaciado);
+        max-width: 600px;
+    }
+    
+    .producto-card {
+        max-width: 300px;
     }
     
     .main {
@@ -266,9 +366,41 @@ body {
     }
 }
 
+/* Móviles grandes */
+@media (max-width: 640px) {
+    .grid-productos {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: calc(var(--espaciado) * 1.2);
+        max-width: 400px;
+    }
+    
+    .producto-card {
+        max-width: 320px;
+    }
+    
+    .filtros {
+        flex-wrap: wrap;
+        gap: calc(var(--espaciado) * 0.4);
+    }
+    
+    .filtro-btn {
+        flex: 0 1 auto;
+        min-width: fit-content;
+    }
+}
+
+/* Móviles pequeños */
 @media (max-width: 480px) {
-    .logo h1 {
-        font-size: 1.5rem;
+    .logo-container {
+        gap: calc(var(--espaciado) * 0.25);
+    }
+    
+    .logo-img {
+        height: 40px;
+    }
+    
+    .nombre-logo {
+        font-size: 1.3rem;
     }
     
     .hero {
@@ -282,5 +414,72 @@ body {
     .nav ul {
         flex-direction: column;
         gap: calc(var(--espaciado) * 0.5);
+    }
+    
+    .grid-productos {
+        grid-template-columns: 1fr;
+        gap: var(--espaciado);
+        max-width: 100%;
+    }
+    
+    .producto-card {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .filtros {
+        justify-content: space-around;
+        gap: calc(var(--espaciado) * 0.3);
+    }
+    
+    .filtro-btn {
+        padding: calc(var(--espaciado) * 0.35) calc(var(--espaciado) * 0.6);
+        font-size: 0.75rem;
+        flex: 1;
+        min-width: 60px;
+        max-width: 80px;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    .main {
+        padding: calc(var(--espaciado) * 0.75);
+    }
+    
+    .productos h3 {
+        font-size: 1.6rem;
+        margin-bottom: var(--espaciado);
+    }
+    
+    .filtros {
+        gap: calc(var(--espaciado) * 0.2);
+        margin-bottom: var(--espaciado);
+    }
+    
+    .filtro-btn {
+        padding: calc(var(--espaciado) * 0.3) calc(var(--espaciado) * 0.4);
+        font-size: 0.7rem;
+        max-width: 70px;
+    }
+    
+    .producto-imagen {
+        height: 200px;
+    }
+    
+    .producto-info {
+        padding: var(--espaciado);
+    }
+    
+    .producto-info h4 {
+        font-size: 1.1rem;
+    }
+    
+    .descripcion {
+        font-size: 0.85rem;
+    }
+    
+    .precio {
+        font-size: 1.3rem;
     }
 }
