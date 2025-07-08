@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Funcionalidad de los botones "Ver Detalles"
+    // Funcionalidad de los botones "Realizar Pedido"
     const botonesComprar = document.querySelectorAll('.btn-comprar');
     
     botonesComprar.forEach(boton => {
@@ -89,13 +89,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.transform = '';
             }, 150);
             
-            // Simulación de acción (en un proyecto real, aquí iría la lógica para mostrar detalles o agregar al carrito)
-            console.log(`Producto seleccionado: ${nombreProducto} - ${precio}`);
-            
-            // Mostrar mensaje temporal
-            mostrarMensaje(`${nombreProducto} seleccionado`, 'info');
+            // Abrir WhatsApp Web con mensaje prellenado
+            abrirWhatsApp(nombreProducto, precio);
         });
     });
+
+    // Función para abrir WhatsApp Web
+    function abrirWhatsApp(producto, precio) {
+        const numeroWhatsApp = "525534266811"; // Número de WhatsApp sin signos + ni espacios
+        const mensaje = `¡Hola! Me interesa el producto: *${producto}* con precio ${precio}. ¿Podrías darme más información?`;
+        
+        // Codificar el mensaje para URL
+        const mensajeCodificado = encodeURIComponent(mensaje);
+        
+        // Construir la URL de WhatsApp Web
+        const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+        
+        // Abrir en nueva ventana/pestaña
+        window.open(urlWhatsApp, '_blank');
+        
+        // Mostrar mensaje de confirmación
+        mostrarMensaje(`Abriendo WhatsApp para ${producto}`, 'info');
+    }
 
     // Función para mostrar mensajes temporales
     function mostrarMensaje(texto, tipo = 'info') {
