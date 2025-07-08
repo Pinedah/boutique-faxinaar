@@ -286,6 +286,20 @@ body {
     color: #999;
 }
 
+.footer a {
+    color: var(--color-morado-boutique);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer a:visited {
+    color: var(--color-morado-boutique);
+}
+
+.footer a:hover {
+    opacity: 0.8;
+}
+
 /* RESPONSIVE DESIGN */
 
 /* Tablets grandes y pantallas medianas */
